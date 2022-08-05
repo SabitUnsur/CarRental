@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -22,18 +24,11 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.Get(p => p.Id == rental.Id && (p.ReturnDate == null || p.ReturnDate > p.RentDate));
+            ValidatonTool.Validate(new RentalValidator(), rental);
 
-            if (result == null)
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult("Araç Kiralandı");
-            }
-
-            else
-            {
-                return new ErrorResult("Araç teslim edilmedi ");
-            }
+            _rentalDal.Add(rental);
+            return new SuccessResult("Araç Kiralandı");
+    
         }
 
         public IResult Delete(Rental rental)

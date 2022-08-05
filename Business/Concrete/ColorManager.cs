@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -23,7 +25,8 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
-           _colorDal.Add(color);
+            ValidatonTool.Validate(new CarValidator(), color);
+            _colorDal.Add(color);
             return new SuccessDataResult<Color>(Messages.ColorAdded);
         }
 
@@ -35,15 +38,8 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
-            }
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
 
-            else
-            {
-                return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
-            }
         }
 
         public IDataResult<Color> GetById(int id)

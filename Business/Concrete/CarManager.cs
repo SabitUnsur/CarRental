@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -24,16 +25,10 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0 && car.Name.Length >= 2)
-            {
-               _carDal.Add(car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);    
 
-                return new SuccessResult(Messages.CarAdded);    
-            }
-            else
-            {
-               return new ErrorResult(Messages.InvalidCharacter);
-            }
+            
         }
 
         public IResult Delete(Car car)
