@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         
         public IActionResult Get(int id)
         {
-            var result=_userService.Get(id);
+            var result= _userService.Get(id);
             if (result.Success)
             {
                 return Ok(result.Data);
