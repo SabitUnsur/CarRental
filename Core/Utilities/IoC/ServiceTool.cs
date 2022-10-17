@@ -9,7 +9,7 @@ namespace Core.Utilities.IoC
 {
     public static class ServiceTool
     {
-        //ASPECT'I INJECTION EDEBILMEK ICIN OLUSTURULDU // 
+        //ctor injection'larını yakalayan tool
         public static IServiceProvider ServiceProvider { get; private set; }
 
         public static IServiceCollection Create(IServiceCollection services)

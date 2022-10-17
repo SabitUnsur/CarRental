@@ -98,6 +98,11 @@ namespace Business.Concrete
             List<CarImage> defaultCarImages = new List<CarImage>();
             defaultCarImages.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "DefaultImage.jpg" });
             return new SuccessDataResult<List<CarImage>>(defaultCarImages);
-        }      
+        }
+
+        public IResult UpdateImage(IFormFile formFile, CarImage updateImage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
